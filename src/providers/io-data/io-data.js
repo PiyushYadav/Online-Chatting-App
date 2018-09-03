@@ -12,7 +12,7 @@ var IoDataProvider = /** @class */ (function () {
     function IoDataProvider() {
         this.data = [
             {
-                name: 'Piyush',
+                name: 'Charlie',
                 status: 'Hey there! I am using Hey!',
                 chatData: [
                     {
@@ -49,7 +49,7 @@ var IoDataProvider = /** @class */ (function () {
                 active: true
             },
             {
-                name: 'Charushi',
+                name: 'Foxtrot',
                 status: 'Hey there! I am using Hey!',
                 chatData: [
                     {
