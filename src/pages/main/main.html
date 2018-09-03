@@ -1,0 +1,166 @@
+<ion-header>
+
+  <ion-navbar color="dark">
+  	<ion-grid no-margin no-padding>
+  	  <ion-row no-margin no-padding>
+  		  
+  		  <ion-col col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10>
+  		  	<ion-title class="text-nav-center">{{AppName}}</ion-title>
+  		  </ion-col>
+  		  
+  		  <ion-col col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2>
+
+  			<button ion-button icon-only float-right color="dark" (click)="presentPopover($event)">
+  			  <ion-icon name="more"></ion-icon>
+  			</button>
+	  	
+  		  </ion-col>
+
+  	  </ion-row>
+  	</ion-grid>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+
+	<div padding>
+	  <ion-segment [(ngModel)]="Variable" color="dark" class="bottom-border">
+	    <ion-segment-button value="Chats">
+	      Chats
+	    </ion-segment-button>
+	    <ion-segment-button value="Active">
+	      Active
+	    </ion-segment-button>
+	    <ion-segment-button value="All">
+	      All
+	    </ion-segment-button>
+	  </ion-segment>
+	</div>
+
+	<div [ngSwitch]="Variable">
+	  
+	  <ion-list *ngSwitchCase="'Chats'">
+
+	    	  <ion-item-sliding *ngFor="let person of People;let i=index;">
+	    	    
+	    	      <ion-item>
+	    	      <ion-avatar item-start (click)="showInfo()">
+	    	        <img src="https://picsum.photos/200/300">
+	    	      </ion-avatar>
+
+	    	      <ion-grid no-margin no-padding (click)="gotoChat(i)">
+	    	      	<ion-row no-margin no-padding>
+	    	      		<ion-col col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-margin no-padding>
+	    					<h2>{{person.name}}</h2>
+	    	      		</ion-col>
+
+	    	      		<ion-col col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 no-margin no-padding text-right>
+	    					
+
+	    	      			<p ion-text style="margin: 0.4em 0px;font-size:1.2rem;">{{person.lastHour}}:{{person.lastMin}}{{person.lastAMPM}}</p>
+
+	    	      		</ion-col>
+
+	    	      		<ion-col col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 no-margin no-padding text-right>
+	    					<ion-badge color="dark" *ngIf="person.notSeen>0">{{ person.notSeen }}</ion-badge>
+	    	      		</ion-col>	    	      		
+
+	    	      	</ion-row>
+	    	      </ion-grid>
+	    	  	</ion-item>
+	    	    
+	    	    <ion-item-options side="left">
+	    	      
+	    	      <button ion-button color="dark">
+	    	        <ion-icon name="close"></ion-icon>
+	    	        Delete
+	    	      </button>
+
+	    	    </ion-item-options>
+
+	    	    <ion-item-options side="right">
+
+	    	    	<button ion-button color="dark">
+	    	    	  <ion-icon name="hand"></ion-icon>
+	    	    	  Hey
+	    	    	</button>
+
+	    	    </ion-item-options>
+
+	    	  </ion-item-sliding>
+
+	    </ion-list>
+
+	  <ion-list *ngSwitchCase="'Active'">
+	    
+
+	  	      <ng-container *ngFor="let person of People;let i=index;">
+	  	      	<ion-item *ngIf="person.active==true">
+	  	      <ion-avatar item-start (click)="showInfo(i)">
+	  	        <img src="https://picsum.photos/200/300">
+	  	      </ion-avatar>
+
+	  	      <ion-grid no-margin no-padding (click)="gotoChat(i)">
+	  	      	<ion-row no-margin no-padding>
+	  	      		<ion-col col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 no-margin no-padding>
+	  					<h2>{{person.name}}</h2>
+	  	      		</ion-col>
+
+	  	      		<ion-col col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 no-margin no-padding text-wrap>
+	  					
+
+	  	      			<p ion-text style="margin: 0.4em 0px;font-size:1.2rem;">{{ person.status }}</p>
+
+	  	      		</ion-col>
+
+	  	      	</ion-row>
+	  	      </ion-grid>
+	  	  	</ion-item>
+	  	  	</ng-container>
+
+	    
+	  </ion-list>
+
+
+	  <ion-list *ngSwitchCase="'All'">
+	    
+
+	  	    
+	  	      <ion-item *ngFor="let person of People;let i=index;">
+	  	      <ion-avatar item-start (click)="showInfo()">
+	  	        <img src="https://picsum.photos/200/300">
+	  	      </ion-avatar>
+
+	  	      <ion-grid no-margin no-padding (click)="gotoChat(i)">
+	  	      	<ion-row no-margin no-padding>
+	  	      		<ion-col col-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 no-margin no-padding>
+	  					<h2>{{person.name}}</h2>
+	  	      		</ion-col>
+
+	  	      		<ion-col col-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 no-margin no-padding text-wrap>
+
+	  					<h6 ion-text style="margin: 0.4em 0px;font-size:1.2rem;" float-right color="primary" *ngIf="person.active==true">Active</h6>
+
+	  					<p ion-text style="margin: 0.4em 0px;font-size:1.2rem;" float-right *ngIf="person.active==false">Inactive</p>
+	  	      		</ion-col>
+
+	  	      	</ion-row>
+	  	      </ion-grid>
+	  	  	</ion-item>
+
+	    
+	  </ion-list>
+	</div>
+
+
+	<ion-fab right bottom>
+	    <button ion-fab color="dark" (click)="showAll()"><ion-icon name="chatboxes"></ion-icon></button>
+	  </ion-fab>
+
+
+	
+</ion-content>
+
